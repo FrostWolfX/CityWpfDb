@@ -20,132 +20,128 @@ namespace CityWpfDb
     /// </summary>
     public partial class addData : Window
     {
-        public addData()
+        public addData(string countryName, string regionId, string regionName)
         {
             InitializeComponent();
-        }
-        public addData(string nameTable)
-        {
-            InitializeComponent();
-            сhoiceTab(nameTable);
-        }
-        public addData(string nameTable, string nameCountry)
-        {
-            InitializeComponent();
-            сhoiceTab(nameTable);
 
-            addNameCountry.Items.Add(nameCountry);
-            addNameCountry.SelectedIndex = addNameCountry.Items.Count - 1;
-        }
-
-        void сhoiceTab(string nameTable)
-        {
-            //выбираю нужное добавление на новой форме, деактивируя другие вкладки
-            switch (nameTable)
+            if (countryName != "")
             {
-                case "Country":
-                    CountryTab.IsSelected = true;
-                    RegionTab.IsEnabled = false;
-                    CityTab.IsEnabled = false;
-                    break;
-                case "Region":
-                    RegionTab.IsSelected = true;
-                    CountryTab.IsEnabled = false;
-                    CityTab.IsEnabled = false;
-                    break;
-                case "City":
-                    CityTab.IsSelected = true;
-                    RegionTab.IsEnabled = false;
-                    CountryTab.IsEnabled = false;
-                    break;
-                default:
-                    break;
+                addCountryName.Items.Add(countryName);
+                addCountryName.SelectedIndex = addCountryName.Items.Count - 1;
             }
-        }
-
-        private void addContent_Click(object sender, RoutedEventArgs e)
-        {
-            try
+            if (regionId != "")
             {
-                if (addCountryText.Text != "")
-                {
-                    string strAddCountry = $"INSERT INTO Country (nameCountry) VALUES ('{addCountryText.Text}')";
-                    string strSearchCountry = $"SELECT nameCountry FROM Country WHERE nameCountry ='{addCountryText.Text}'";
-                    if (QuerySQLDB.QueryDB(strSearchCountry).Rows.Count == 0)//проверка существует ли запись страны в таблице
-                    {
-                        QuerySQLDB.QueryDB(strAddCountry);//записываем страну в таблицу
-                        resultAddCountry.Foreground = Brushes.Green;
-                        resultAddCountry.Content = "Запись успешно добавлена";
-                    }
-                    else
-                    {
-                        resultAddCountry.Foreground = Brushes.Red;
-                        resultAddCountry.Content = "Запись уже существует";
-                    }
-                    
-                }
+                addRegionId.Items.Add(regionId);
+                addRegionId.SelectedIndex = addRegionId.Items.Count - 1;
             }
-            catch (Exception ex)
+            if (regionName != "")
             {
-                MessageBox.Show(ex.Message);
+                addRegionName.Text = regionName;
             }
         }
 
         private void addContentRegion_Click(object sender, RoutedEventArgs e)
         {
-            if (Int32.TryParse(addRegionId.Text, out int correctNumberId))
+            if (addCityName.Text == "" && addRegionName.Text == "" && addRegionId.Text == "" && addCountryName.Text != "")
             {
-                string sqlExistCountryAndRegion = $"SELECT * FROM Region WHERE nameCountry = '{addNameCountry.Text}' AND " +
-                $"nameRegion = '{addRegionName.Text}'";
-                string sqlExistId = $"SELECT * FROM Region WHERE idRegion = {addRegionId.Text}";
-                string sqlExistCounrty = $"SELECT * FROM Country WHERE nameCountry = '{addNameCountry.Text}'";
-
-                string sqlAddCountry = $"INSERT INTO Country (nameCountry) VALUES ('{addNameCountry.Text}')";
-                string sqlAddRegion = $"INSERT INTO Region (nameCountry, idRegion, nameRegion) " +
-                    $"VALUES ('{addNameCountry.Text}', {addRegionId.Text}, '{addRegionName.Text}')";
-
-                if (QuerySQLDB.QueryDB(sqlExistCountryAndRegion).Rows.Count == 0)//проверка существования страны с регионом
+                string strAddCountry = $"INSERT INTO Country (nameCountry) VALUES ('{addCountryName.Text}')";
+                string strSearchCountry = $"SELECT nameCountry FROM Country WHERE nameCountry ='{addCountryName.Text}'";
+                if (QuerySQLDB.QueryDB(strSearchCountry).Rows.Count == 0)//проверка существует ли запись страны в таблице
                 {
-                    if (QuerySQLDB.QueryDB(sqlExistId).Rows.Count == 0)//проверка свободен ли id
-                    {
-                        if (QuerySQLDB.QueryDB(sqlExistCounrty).Rows.Count == 0)//проверка существования страны в таблице Страны, 
-                                                                                //т.к. БД реляционная и это критично
-                        {
-                            QuerySQLDB.QueryDB(sqlAddCountry);//добавляем страну в таблицу Country
-                            QuerySQLDB.QueryDB(sqlAddRegion);//добавляю запись в таблицу Region
-
-                            resultAddRegion.Foreground = Brushes.Green;
-                            resultAddRegion.Content = "Запись успешно добавлена";
-                        }
-                        else
-                        {
-                            QuerySQLDB.QueryDB(sqlAddRegion);//добавляю запись в таблицу Region
-                            resultAddRegion.Foreground = Brushes.Green;
-                            resultAddRegion.Content = "Запись успешно добавлена";
-                        }
-                    }
-                    else
-                    {
-                        resultAddRegion.Foreground = Brushes.Red;
-                        resultAddRegion.Content = "Id уже сущестует, введите новый Id";
-                    }
+                    QuerySQLDB.QueryDB(strAddCountry);//записываем страну в таблицу
+                    resultAdd.Foreground = Brushes.Green;
+                    resultAdd.Content = $"{addCountryName.Text} успешно добавлена";
                 }
                 else
                 {
-                    resultAddRegion.Foreground = Brushes.Red;
-                    resultAddRegion.Content = "Запись уже существует";
+                    resultAdd.Foreground = Brushes.Red;
+                    resultAdd.Content = $"{addCountryName.Text} уже существует";
+                }
+            }
+            else if (addCityName.Text == "" && (addRegionName.Text != "" && addRegionId.Text != "") && addCountryName.Text != "")
+            {
+                insertRegion();
+            }
+            else if (addCityName.Text != "" && (addRegionName.Text != "" && addRegionId.Text != "") && addCountryName.Text != "")
+            {
+                string sqlExistCity = $"SELECT * FROM City WHERE idRegion = {addRegionId.Text} AND nameCity = '{addCityName.Text}'";
+                string sqlAddCity = $"INSERT INTO City (idRegion, nameCity) VALUES ('{addRegionId.Text}', '{addCityName.Text}')";
+                if (insertRegion())
+                {
+                    //проверяем существует ли город
+                    if (QuerySQLDB.QueryDB(sqlExistCity).Rows.Count == 0)
+                    {
+                        //добавляем город
+                        QuerySQLDB.QueryDB(sqlAddCity);
+                        resultAdd.Foreground = Brushes.Green;
+                        resultAdd.Content = "Город успешно добавлен";
+                    }
+                    else
+                    {
+                        resultAdd.Foreground = Brushes.Red;
+                        resultAdd.Content = "Город уже существует";
+                    }
                 }
             }
             else
             {
-                resultAddRegion.Foreground = Brushes.Red;
-                resultAddRegion.Content = "Некорректный индекс региона";
+                resultAdd.Foreground = Brushes.Red;
+                resultAdd.Content = "Некоторые поля заполненны некоректно";
             }
-        }
 
-        private void addContentCity_Click(object sender, RoutedEventArgs e)
-        {
+            bool insertRegion()
+            {
+                if (Int32.TryParse(addRegionId.Text, out int correctNumberId2))
+                {
+                    string sqlExistCountryAndRegion = $"SELECT * FROM Region WHERE nameCountry = '{addCountryName.Text}' AND " +
+                $"nameRegion = '{addRegionName.Text}'";
+                    string sqlExistId = $"SELECT * FROM Region WHERE idRegion = {addRegionId.Text}";
+                    string sqlExistCounrty = $"SELECT * FROM Country WHERE nameCountry = '{addCountryName.Text}'";
 
+                    string sqlAddCountry = $"INSERT INTO Country (nameCountry) VALUES ('{addCountryName.Text}')";
+                    string sqlAddRegion = $"INSERT INTO Region (nameCountry, idRegion, nameRegion) " +
+                        $"VALUES ('{addCountryName.Text}', {addRegionId.Text}, '{addRegionName.Text}')";
+
+                    if (QuerySQLDB.QueryDB(sqlExistCountryAndRegion).Rows.Count == 0)//проверка существования страны с вписанным регионом
+                    {
+                        if (QuerySQLDB.QueryDB(sqlExistId).Rows.Count == 0)//проверка свободен ли id
+                        {
+                            if (QuerySQLDB.QueryDB(sqlExistCounrty).Rows.Count == 0)//проверка существования страны в таблице Страны, 
+                                                                                    //т.к. БД реляционная и это критично
+                            {
+                                QuerySQLDB.QueryDB(sqlAddCountry);//добавляем страну в таблицу Country
+                                QuerySQLDB.QueryDB(sqlAddRegion);//добавляю запись в таблицу Region
+
+                                resultAdd.Foreground = Brushes.Green;
+                                resultAdd.Content = "Запись успешно добавлена";
+                            }
+                            else
+                            {
+                                QuerySQLDB.QueryDB(sqlAddRegion);//добавляю запись в таблицу Region
+                                resultAdd.Foreground = Brushes.Green;
+                                resultAdd.Content = "Запись успешно добавлена";
+                            }
+                        }
+                        else
+                        {
+                            resultAdd.Foreground = Brushes.Red;
+                            resultAdd.Content = "Id уже сущестует, введите новый Id";
+                        }
+                    }
+                    else
+                    {
+                        resultAdd.Foreground = Brushes.Red;
+                        resultAdd.Content = "Запись уже существует";
+                    }
+                    return true;
+                }
+                else
+                {
+                    resultAdd.Foreground = Brushes.Red;
+                    resultAdd.Content = "Некорректный индекс региона";
+                    return false;
+                }
+            }
         }
     }
 }

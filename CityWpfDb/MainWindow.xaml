@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CityWpfDb"
         mc:Ignorable="d"
-        Title="Где город?" Height="600.504" Width="705.916">
+        Title="Где город?" Height="649.171" Width="705.916">
     <Grid>
         <Label Content="Страна" HorizontalAlignment="Left" Margin="20,109,0,0" VerticalAlignment="Top" Width="160" Height="25"/>
         <Button x:Name="saveButtonCountry" Content="Изменить" HorizontalAlignment="Left" Margin="20,519,0,0" VerticalAlignment="Top" Width="70"/>
@@ -40,9 +40,10 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <Button x:Name="addCountry" Content="+" HorizontalAlignment="Left" Margin="144,0,0,436" VerticalAlignment="Bottom" Width="36" RenderTransformOrigin="0.32,2.3" Height="25" Click="addCountry_Click"/>
-        <Button x:Name="addRegion" Content="+" HorizontalAlignment="Left" Margin="465,109,0,0" VerticalAlignment="Top" Width="36" RenderTransformOrigin="0.32,2.3" Height="25" Click="addRegion_Click"/>
-        <Button x:Name="addCity" Content="+" HorizontalAlignment="Left" Margin="644,109,0,0" VerticalAlignment="Top" Width="36" RenderTransformOrigin="0.32,2.3" Height="25" Click="addCity_Click"/>
+        <Button x:Name="addRegion" Content="Добавить" HorizontalAlignment="Left" Margin="319,560,0,0" VerticalAlignment="Top" Width="83" RenderTransformOrigin="0.32,2.3" Height="32" Click="addRegion_Click"/>
+        <Button x:Name="Refresh_Country" Content="&#8634;" HorizontalAlignment="Left" Padding="0, -7 ,0 ,0" Margin="78,109,0,0" VerticalAlignment="Top" Width="36" Height="25" FontSize="20" RenderTransformOrigin="0.5,0.5" Click="refresh_Click" FontWeight="Bold">
+
+        </Button>
 
     </Grid>
 </Window>

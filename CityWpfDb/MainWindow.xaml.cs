@@ -107,11 +107,14 @@ namespace CityWpfDb
 
         private void listCountry_SelectionChanged(object sender, SelectionChangedEventArgs e)//вывод регионов
         {
-            string selectCountry = (listCountry.SelectedItem as Country).nameCountry;
+            if (listCountry.Items.Count > 0)
+            {
+                string selectCountry = (listCountry.SelectedItem as Country).nameCountry;
 
-            ClearListView("Country");
+                ClearListView("Country");
 
-            Load1("region", "SELECT * FROM Region WHERE nameCountry = " + "'" + selectCountry.ToString() + "'");
+                Load1("region", "SELECT * FROM Region WHERE nameCountry = " + "'" + selectCountry.ToString() + "'");
+            }            
         }
 
         private void listRegion_SelectionChanged(object sender, SelectionChangedEventArgs e)//вывод городов
@@ -130,32 +133,38 @@ namespace CityWpfDb
             }
         }
 
-        private void addCountry_Click(object sender, RoutedEventArgs e)//добавление страны
-        {
-            addData addData = new addData("Country");
-            addData.ShowDialog();
-            listCountry.Items.Clear();
-            Load1("country", "SELECT * FROM Country");
-        }
-
         private void addRegion_Click(object sender, RoutedEventArgs e)//добавление региона
         {
+            string nCountry, iRegion, nRegion;
             if (listCountry.SelectedIndex == -1)
             {
-                addData addData = new addData("Region");
-                addData.ShowDialog();
+                nCountry = "";
             }
             else
             {
-                addData addData = new addData("Region", (listCountry.SelectedItem as Country).nameCountry);
-                addData.ShowDialog();
+                nCountry = (listCountry.SelectedItem as Country).nameCountry;
             }
+            if (listRegion.SelectedIndex == -1)
+            {
+                iRegion = "";
+                nRegion = "";
+            }
+            else
+            {
+                iRegion = (listRegion.SelectedItem as Region).idRegion;
+                nRegion = (listRegion.SelectedItem as Region).nameRegion;
+            }
+
+            addData addData = new addData(nCountry, iRegion, nRegion);
+            addData.ShowDialog();
         }
 
-        private void addCity_Click(object sender, RoutedEventArgs e)//добавление города
+        private void refresh_Click(object sender, RoutedEventArgs e)
         {
-            addData addData = new addData("City");
-            addData.ShowDialog();
+            listCountry.Items.Clear();
+            listRegion.Items.Clear();
+            listCity.Items.Clear();
+            Load1("country", "SELECT * FROM Country");
         }
     }
 }
