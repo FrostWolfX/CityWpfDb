@@ -1,0 +1,47 @@
+﻿<Window x:Class="CityWpfDb.addData"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CityWpfDb"
+        mc:Ignorable="d"
+        Title="Добавить" Height="256.583" Width="324.123">
+    <Grid>
+        <TabControl HorizontalAlignment="Left" Height="216" Margin="10,0,0,0" VerticalAlignment="Top" Width="296">
+            <TabItem Header="Страна" x:Name="CountryTab">
+                <Grid Background="#FFE5E5E5" Margin="0,0,-2,0">
+                    <Label Content="Название страны:" HorizontalAlignment="Left" Margin="10,9,0,0" VerticalAlignment="Top" Width="107"/>
+                    <TextBox x:Name="addCountryText" HorizontalAlignment="Left" Height="23" Margin="122,12,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="160"/>
+                    <Button x:Name="addContent" Content="Добавить" HorizontalAlignment="Left" Margin="66,50,0,0" VerticalAlignment="Top" Width="160" Height="30" Click="addContent_Click"/>
+                    <Label Content="" x:Name="resultAddCountry" HorizontalAlignment="Left" Margin="10,91,0,0" VerticalAlignment="Top" Width="272" Foreground="{Binding colourOperation}"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Регион" x:Name="RegionTab">
+                <Grid Background="#FFE5E5E5">
+                    <Label Content="Название страны:" HorizontalAlignment="Left" Margin="10,9,0,0" VerticalAlignment="Top" Width="107" FontSize="11"/>
+                    <Label Content="" x:Name="resultAddRegion" HorizontalAlignment="Left" Margin="10,152,0,0" VerticalAlignment="Top" Width="272" Foreground="{Binding colourOperation}"/>
+                    <Label Content="Индекс региона:" HorizontalAlignment="Left" Margin="10,38,0,0" VerticalAlignment="Top" Width="107" FontSize="11"/>
+                    <Label Content="Название региона:" HorizontalAlignment="Left" Margin="10,65,0,0" VerticalAlignment="Top" Width="107" FontSize="11"/>
+                    <ComboBox x:Name="addNameCountry" HorizontalAlignment="Left" Margin="122,13,0,0" VerticalAlignment="Top" Width="158" IsEditable="True">
+                        <ComboBoxItem Content="Россия"/>
+                        <ComboBoxItem Content="Молдова"/>
+                    </ComboBox>
+                    <ComboBox x:Name="addRegionId" HorizontalAlignment="Left" Margin="122,40,0,0" VerticalAlignment="Top" Width="158" IsEditable="True"/>
+                    <TextBox x:Name="addRegionName" HorizontalAlignment="Left" Height="23" Margin="122,68,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="160"/>
+                    <Button x:Name="addContentRegion" Content="Добавить" HorizontalAlignment="Left" Margin="61,108,0,0" VerticalAlignment="Top" Width="160" Height="30" Click="addContentRegion_Click"/>
+
+                </Grid>
+            </TabItem>
+            <TabItem Header="Город" x:Name="CityTab">
+                <Grid Background="#FFE5E5E5">
+                    <Label Content="Индекс региона:" HorizontalAlignment="Left" Margin="10,38,0,0" VerticalAlignment="Top" Width="107" FontSize="11"/>
+                    <Label Content="Название города:" HorizontalAlignment="Left" Margin="10,65,0,0" VerticalAlignment="Top" Width="107" FontSize="11"/>
+                    <ComboBox x:Name="addRegionIdInCity" HorizontalAlignment="Left" Margin="122,40,0,0" VerticalAlignment="Top" Width="158" IsEditable="True"/>
+                    <TextBox x:Name="addCityName" HorizontalAlignment="Left" Height="23" Margin="122,68,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="160"/>
+                    <Button x:Name="addContentCity" Content="Добавить" HorizontalAlignment="Left" Margin="61,108,0,0" VerticalAlignment="Top" Width="160" Height="30" Click="addContentCity_Click"/>
+                    
+                </Grid>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Window>

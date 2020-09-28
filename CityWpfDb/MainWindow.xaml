@@ -1,0 +1,48 @@
+﻿<Window x:Class="CityWpfDb.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CityWpfDb"
+        mc:Ignorable="d"
+        Title="Где город?" Height="600.504" Width="705.916">
+    <Grid>
+        <Label Content="Страна" HorizontalAlignment="Left" Margin="20,109,0,0" VerticalAlignment="Top" Width="160" Height="25"/>
+        <Button x:Name="saveButtonCountry" Content="Изменить" HorizontalAlignment="Left" Margin="20,519,0,0" VerticalAlignment="Top" Width="70"/>
+        <Button x:Name="deleteButtonCountry" Content="Удалить" HorizontalAlignment="Left" Margin="110,519,0,0" VerticalAlignment="Top" Width="70"/>
+        <Label Content="Регион" HorizontalAlignment="Left" Margin="341,109,0,0" VerticalAlignment="Top" Width="160" Height="25"/>
+        <Button x:Name="saveButtonRegion" Content="Изменить" HorizontalAlignment="Left" Margin="262,519,0,0" VerticalAlignment="Top" Width="70"/>
+        <Button x:Name="deleteButtonRegion" Content="Удалить" HorizontalAlignment="Left" Margin="382,519,0,0" VerticalAlignment="Top" Width="70"/>
+        <Label Content="Город" HorizontalAlignment="Left" Margin="520,109,0,0" VerticalAlignment="Top" Width="160" Height="25"/>
+        <Button x:Name="saveButtonCity" Content="Изменить" HorizontalAlignment="Left" Margin="520,519,0,0" VerticalAlignment="Top" Width="70"/>
+        <Button x:Name="deleteButtonCity" Content="Удалить" HorizontalAlignment="Left" Margin="610,519,0,0" VerticalAlignment="Top" Width="70"/>
+        <ListView x:Name="listCountry" HorizontalAlignment="Left" Height="374" Margin="20,140,0,0" VerticalAlignment="Top" Width="160" SelectionChanged="listCountry_SelectionChanged">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Страна" Width="100" DisplayMemberBinding="{Binding nameCountry}"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <ListView x:Name="listRegion" HorizontalAlignment="Left" Height="374" Margin="201,140,0,0" VerticalAlignment="Top" Width="300" SelectionChanged="listRegion_SelectionChanged">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Страна" Width="80" DisplayMemberBinding="{Binding nameCountry}"/>
+                    <GridViewColumn Header="Регион" Width="50" DisplayMemberBinding="{Binding idRegion}"/>
+                    <GridViewColumn Header="Регион" Width="150" DisplayMemberBinding="{Binding nameRegion}"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <ListView x:Name="listCity" HorizontalAlignment="Left" Height="374" Margin="520,140,0,0" VerticalAlignment="Top" Width="160">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="id" Width="50" DisplayMemberBinding="{Binding idRegion}"/>
+                    <GridViewColumn Header="Страна" Width="100" DisplayMemberBinding="{Binding nameCity}"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <Button x:Name="addCountry" Content="+" HorizontalAlignment="Left" Margin="144,0,0,436" VerticalAlignment="Bottom" Width="36" RenderTransformOrigin="0.32,2.3" Height="25" Click="addCountry_Click"/>
+        <Button x:Name="addRegion" Content="+" HorizontalAlignment="Left" Margin="465,109,0,0" VerticalAlignment="Top" Width="36" RenderTransformOrigin="0.32,2.3" Height="25" Click="addRegion_Click"/>
+        <Button x:Name="addCity" Content="+" HorizontalAlignment="Left" Margin="644,109,0,0" VerticalAlignment="Top" Width="36" RenderTransformOrigin="0.32,2.3" Height="25" Click="addCity_Click"/>
+
+    </Grid>
+</Window>
