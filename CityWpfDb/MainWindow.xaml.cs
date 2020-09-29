@@ -24,6 +24,14 @@ namespace CityWpfDb
         {
             InitializeComponent();
             Load1("country", "SELECT * FROM Country");// загрузки стран в listbox, при старте
+
+            //загрузка городов в Combo_search
+            string sqlShowCity = $"SELECT * FROM City";
+            DataTable dataCity = QuerySQLDB.QueryDB(sqlShowCity);
+            for (int i = 0; i < dataCity.Rows.Count; i++)
+            {
+                Combo_search.Items.Add(dataCity.Rows[i][1]);
+            }
         }
 
         public class Country
@@ -58,7 +66,6 @@ namespace CityWpfDb
                         };
                         listCountry.Items.Add(dataCountry);
                         break;
-
                     case "region":
                         Region dataRegion = new Region()
                         {
@@ -68,7 +75,6 @@ namespace CityWpfDb
                         };
                         listRegion.Items.Add(dataRegion);
                         break;
-
                     case "city":
                         City city = new City()
                         {
@@ -77,7 +83,6 @@ namespace CityWpfDb
                         };
                         listCity.Items.Add(city);
                         break;
-
                     default:
                         break;
                 }
@@ -165,6 +170,12 @@ namespace CityWpfDb
             listRegion.Items.Clear();
             listCity.Items.Clear();
             Load1("country", "SELECT * FROM Country");
+        }
+
+        private void Search_button_Click(object sender, RoutedEventArgs e)
+        {
+            string sqlExistCity = $"SELECT * FROM City WHERE nameCity = '{Combo_search.Text}'";
+
         }
     }
 }
