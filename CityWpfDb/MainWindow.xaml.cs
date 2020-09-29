@@ -91,20 +91,29 @@ namespace CityWpfDb
 
         void ClearListView(string nameListForClear)//функция для очистки lisbox при выборе различных стран или регионов
         {
-            switch (nameListForClear)
+            switch (nameListForClear.ToLower())
             {
-                case "Country"://очищаем listbox региона и города
+                case "country"://очищаем listbox региона и города
                     listRegion.SelectedIndex = -1;//снимаю выделение
                     listRegion.Items.Clear();
-
                     listCity.SelectedIndex = -1;//снимаю выделение
                     listCity.Items.Clear();
-
                     break;
-                case "Region"://очищаем listbox города
+
+                case "region"://очищаем listbox города
                     listCity.SelectedIndex = -1;
                     listCity.Items.Clear();
                     break;
+
+                case "city":
+                    listRegion.SelectedIndex = -1;//снимаю выделение
+                    listRegion.Items.Clear();
+                    listCity.SelectedIndex = -1;//снимаю выделение
+                    listCity.Items.Clear();
+                    listCountry.SelectedIndex = -1;//снимаю выделение
+                    listCountry.Items.Clear();
+                    break;
+
                 default:
                     break;
             }
@@ -112,7 +121,11 @@ namespace CityWpfDb
 
         private void listCountry_SelectionChanged(object sender, SelectionChangedEventArgs e)//вывод регионов
         {
-            if (listCountry.Items.Count > 0)
+            if (listCountry.SelectedIndex == -1)
+            {
+                //при очистке listbox переходит сюда, была решена проблема с выделеннием в listbox
+            }
+            else
             {
                 string selectCountry = (listCountry.SelectedItem as Country).nameCountry;
 
@@ -175,7 +188,34 @@ namespace CityWpfDb
         private void Search_button_Click(object sender, RoutedEventArgs e)
         {
             string sqlExistCity = $"SELECT * FROM City WHERE nameCity = '{Combo_search.Text}'";
+            ClearListView("city");
+            
 
+            DataTable dataCity = QuerySQLDB.QueryDB(sqlExistCity);
+            for (int i = 0; i < dataCity.Rows.Count; i++)
+            {
+                City city = new City()
+                {
+                    idRegion = dataCity.Rows[i][0].ToString(),
+                    nameCity = dataCity.Rows[i][1].ToString()
+                };
+                listCity.Items.Add(city);
+
+
+                string sqlExitsRegion = $"SELECT * FROM Region WHERE idRegion = {dataCity.Rows[i][0]}";
+                DataTable dataRegion = QuerySQLDB.QueryDB(sqlExitsRegion);
+                for (int j = 0; j < dataRegion.Rows.Count; j++)
+                {
+                    Region region = new Region()
+                    {
+                        nameCountry = dataRegion.Rows[j][0].ToString(),
+                        idRegion = dataRegion.Rows[j][1].ToString(),
+                        nameRegion = dataRegion.Rows[j][2].ToString()
+                    };
+                    listRegion.Items.Add(region);
+                    listCountry.Items.Add(new Country { nameCountry = dataRegion.Rows[j][0].ToString() });
+                }
+            }
         }
     }
 }

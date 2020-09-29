@@ -8,35 +8,35 @@
         Title="Где город?" Height="609.171" Width="705.916">
     <Grid>
         <Label Content="Страна" HorizontalAlignment="Left" Margin="20,69,0,0" VerticalAlignment="Top" Width="160" Height="24"/>
-        <Button x:Name="saveButtonCountry" Content="Изменить" HorizontalAlignment="Left" Margin="20,479,0,0" VerticalAlignment="Top" Width="70"/>
-        <Button x:Name="deleteButtonCountry" Content="Удалить" HorizontalAlignment="Left" Margin="110,479,0,0" VerticalAlignment="Top" Width="70"/>
-        <Label Content="Регион" HorizontalAlignment="Left" Margin="341,69,0,0" VerticalAlignment="Top" Width="160" Height="24"/>
-        <Button x:Name="saveButtonRegion" Content="Изменить" HorizontalAlignment="Left" Margin="262,479,0,0" VerticalAlignment="Top" Width="70"/>
-        <Button x:Name="deleteButtonRegion" Content="Удалить" HorizontalAlignment="Left" Margin="382,479,0,0" VerticalAlignment="Top" Width="70"/>
+        <Button x:Name="saveButtonCountry" Content="Изменить" HorizontalAlignment="Left" Margin="20,479,0,0" VerticalAlignment="Top" Width="107"/>
+        <Button x:Name="deleteButtonCountry" Content="Удалить" HorizontalAlignment="Left" Margin="20,504,0,0" VerticalAlignment="Top" Width="107"/>
+        <Label Content="Регион" HorizontalAlignment="Left" Margin="291,69,0,0" VerticalAlignment="Top" Width="160" Height="24"/>
+        <Button x:Name="saveButtonRegion" Content="Изменить" HorizontalAlignment="Left" Margin="212,479,0,0" VerticalAlignment="Top" Width="70"/>
+        <Button x:Name="deleteButtonRegion" Content="Удалить" HorizontalAlignment="Left" Margin="332,479,0,0" VerticalAlignment="Top" Width="70"/>
         <Label Content="Город" HorizontalAlignment="Left" Margin="520,69,0,0" VerticalAlignment="Top" Width="160" Height="24"/>
         <Button x:Name="saveButtonCity" Content="Изменить" HorizontalAlignment="Left" Margin="520,479,0,0" VerticalAlignment="Top" Width="70"/>
         <Button x:Name="deleteButtonCity" Content="Удалить" HorizontalAlignment="Left" Margin="610,479,0,0" VerticalAlignment="Top" Width="70"/>
-        <ListView x:Name="listCountry" HorizontalAlignment="Left" Height="374" Margin="20,99,0,0" VerticalAlignment="Top" Width="160" SelectionChanged="listCountry_SelectionChanged">
+        <ListView x:Name="listCountry" HorizontalAlignment="Left" Height="374" Margin="20,99,0,0" VerticalAlignment="Top" Width="107" SelectionChanged="listCountry_SelectionChanged">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Страна" Width="100" DisplayMemberBinding="{Binding nameCountry}"/>
                 </GridView>
             </ListView.View>
         </ListView>
-        <ListView x:Name="listRegion" HorizontalAlignment="Left" Height="374" Margin="201,99,0,0" VerticalAlignment="Top" Width="300" SelectionChanged="listRegion_SelectionChanged">
+        <ListView x:Name="listRegion" HorizontalAlignment="Left" Height="374" Margin="132,99,0,0" VerticalAlignment="Top" Width="332" SelectionChanged="listRegion_SelectionChanged">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Страна" Width="80" DisplayMemberBinding="{Binding nameCountry}"/>
-                    <GridViewColumn Header="Регион" Width="50" DisplayMemberBinding="{Binding idRegion}"/>
-                    <GridViewColumn Header="Регион" Width="150" DisplayMemberBinding="{Binding nameRegion}"/>
+                    <GridViewColumn Header="Id региона" Width="80" DisplayMemberBinding="{Binding idRegion}"/>
+                    <GridViewColumn Header="Регион" Width="170" DisplayMemberBinding="{Binding nameRegion}"/>
                 </GridView>
             </ListView.View>
         </ListView>
-        <ListView x:Name="listCity" HorizontalAlignment="Left" Height="374" Margin="520,99,0,0" VerticalAlignment="Top" Width="160">
+        <ListView x:Name="listCity" HorizontalAlignment="Left" Height="374" Margin="482,99,0,0" VerticalAlignment="Top" Width="198">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="id" Width="50" DisplayMemberBinding="{Binding idRegion}"/>
-                    <GridViewColumn Header="Страна" Width="100" DisplayMemberBinding="{Binding nameCity}"/>
+                    <GridViewColumn Header="id региона" Width="70" DisplayMemberBinding="{Binding idRegion}"/>
+                    <GridViewColumn Header="Город" Width="120" DisplayMemberBinding="{Binding nameCity}"/>
                 </GridView>
             </ListView.View>
         </ListView>
