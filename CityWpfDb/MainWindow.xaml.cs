@@ -177,6 +177,7 @@ namespace CityWpfDb
             addData.ShowDialog();
         }
 
+        //кнопка очистки списка регионов и городов
         private void refresh_Click(object sender, RoutedEventArgs e)
         {
             listCountry.Items.Clear();
@@ -215,6 +216,42 @@ namespace CityWpfDb
                     listRegion.Items.Add(region);
                     listCountry.Items.Add(new Country { nameCountry = dataRegion.Rows[j][0].ToString() });
                 }
+            }
+        }
+
+        private void updateButtonCity_Click(object sender, RoutedEventArgs e)
+        {
+            //изменение выбранного города
+            if (listCity.Items.Count != 0 && listCity.SelectedIndex != -1)
+            {
+                string[] selectCity = {
+                (listCity.SelectedItem as City).idRegion,
+                (listCity.SelectedItem as City).nameCity
+                };
+
+                UpdateFotm updateFotm = new UpdateFotm(selectCity);
+                updateFotm.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show("Не выбран город для редактирования");
+            }
+        }
+
+        private void deleteButtonCity_Click(object sender, RoutedEventArgs e)
+        {
+            //удаление выбранного города
+            if (listCity.Items.Count != 0 && listCity.SelectedIndex != -1)
+            {
+                string sqlDeleteCity = $"DELETE FROM City WHERE idRegion = {(listCity.SelectedItem as City).idRegion} " +
+                    $"AND nameCity = '{(listCity.SelectedItem as City).nameCity}'";
+                QuerySQLDB.QueryDB(sqlDeleteCity);
+                MessageBox.Show("Запись успешно удалена!");
+                listCity.Items.RemoveAt(listCity.SelectedIndex);
+            }
+            else
+            {
+                MessageBox.Show("Не выбран город для удаления");
             }
         }
     }

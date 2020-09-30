@@ -52,3 +52,5 @@ E:\Do it\C#\Projects\CityWpfDb\CityWpfDb\obj\Debug\CityWpfDb.csproj.CoreCompileI
 E:\Do it\C#\Projects\CityWpfDb\CityWpfDb\obj\Debug\CityWpfDb.csproj.CopyComplete
 E:\Do it\C#\Projects\CityWpfDb\CityWpfDb\obj\Debug\addData.g.cs
 E:\Do it\C#\Projects\CityWpfDb\CityWpfDb\obj\Debug\addData.baml
+E:\Do it\C#\Projects\CityWpfDb\CityWpfDb\obj\Debug\UpdateFotm.g.cs
+E:\Do it\C#\Projects\CityWpfDb\CityWpfDb\obj\Debug\UpdateFotm.baml
